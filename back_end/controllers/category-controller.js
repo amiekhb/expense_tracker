@@ -1,4 +1,6 @@
-const getAllCategory = (req, res) => {};
+const getAllCategory = (req, res) => {
+  res.status(200).json({});
+};
 const createCategory = () => {};
 const updateCategory = () => {};
 const deleteCategory = () => {};

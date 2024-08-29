@@ -1,23 +1,17 @@
-const { Client } = require("pg");
+const postgres = require("postgres");
+require("dotenv").config();
 
-const client = new Client({
-  user: "expense_db_owner",
-  password: "r1Eh8lsoCMbV",
-  host: "postgresql://expense_db_owner:r1Eh8lsoCMbV@ep-falling-bonus-a5kzr4jm.us-east-2.aws.neon.tech/expense_db?sslmode=require",
-  port: 5334,
-  database: "expense_db",
+const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
+const sql = postgres({
+  host: PGHOST,
+  database: PGDATABASE,
+  username: PGUSER,
+  password: PGPASSWORD,
+  port: 5432,
+  ssl: "require",
+  connection: {
+    options: `project=${ENDPOINT_ID}`,
+  },
 });
 
-// await client.connect();
-const connectDB = async () => {
-  console.log("DB");
-  try {
-    await client.connect();
-    console.log("Connected database");
-  } catch (error) {
-    console.log("DB error:", error);
-  }
-};
-
-module.exports = client;
-module.exports = { connectDB };
+module.exports = sql;

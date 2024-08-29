@@ -1,4 +1,4 @@
-const { CategoryRouter } = require("express");
+const { Router } = require("express");
 const {
   getAllCategory,
   createCategory,
@@ -13,4 +13,4 @@ const router = Router();
 router.route("/").get(getAllCategory).post(createCategory);
 router.route("/:id").put(updateCategory).delete(deleteCategory);
 
-module.exports = CategoryRouter;
+module.exports = router;
