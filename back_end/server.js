@@ -6,6 +6,7 @@ dotenv.config();
 
 const userRoutes = require("./routes/user-route");
 const categoryRoutes = require("./routes/category-route");
+const recordRoutes = require("./routes/record-route");
 
 const PORT = process.env.PORT;
 
@@ -17,6 +18,7 @@ app.use(logger());
 
 app.use("/users", userRoutes);
 app.use("/category", categoryRoutes);
+app.use("/records", recordRoutes);
 
 // app.get("/users", (req, res) => {
 //   console.log("all user is read successfully");
