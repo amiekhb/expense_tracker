@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const SignUp = () => {
@@ -34,7 +35,12 @@ const SignUp = () => {
         <button className="bg-blue-600  w-full max-w-xs rounded-full p-3 text-white">
           Sign up
         </button>
-        <div>Already have account?</div>
+        <div className="flex gap-3">
+          <p>Already have account?</p>
+          <Link className="text-blue-600" href={"/login"}>
+            Log in
+          </Link>
+        </div>
       </div>
       <div className=" bg-blue-600 w-full h-full"></div>
     </div>
