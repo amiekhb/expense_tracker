@@ -6,8 +6,8 @@ const signUp = async (req, res) => {
   const { email, name, password } = req.body;
   const hashedPassword = bcrypt.hashSync(password, 10);
   const data = await sql`
-    INSERT INTO users (email, name, ,password)
-    VALUES(${name},${email},${hashedPassword},'url);`;
+    INSERT INTO users(email, name, password, profile_img)
+    VALUES(${email}, ${name}, ${hashedPassword}, 'url');`;
   console.log("DATA", data);
   res
     .status(201)
@@ -16,7 +16,7 @@ const signUp = async (req, res) => {
 
 const logIn = async (req, res) => {
   const { email, password } = req.body;
-  const data = await sql`
+  const [user] = await sql`
     SELECT * FROM users WHERE email=${email}`;
 
   if (!user) {
