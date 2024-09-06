@@ -6,7 +6,7 @@ import { FaPlus } from "react-icons/fa6";
 const Header = ({ user, logOut }) => {
   return (
     <div>
-      <div className="p-5 flex justify-between">
+      <div className="p-8 flex justify-between">
         <div className="flex gap-5">
           <img src="./image/Vector.png" alt="" />
           <Link href={"/dashboard"}>Dashboard</Link>

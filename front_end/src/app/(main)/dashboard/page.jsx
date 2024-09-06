@@ -2,7 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+
+import { GoDotFill } from "react-icons/go";
+import { TbCurrencyTugrik } from "react-icons/tb";
+
 import { useEffect, useState } from "react";
+import { FaArrowCircleDown } from "react-icons/fa";
+import Card from "@/app/components/card";
+import Income from "@/app/components/income";
+import Expense from "@/app/components/expense";
+import LastRecords from "@/app/components/last-records";
 
 const Dashboard = () => {
   const [userToken, setUserToken] = useState(null);
@@ -11,7 +20,14 @@ const Dashboard = () => {
     setUserToken(token);
   }, []);
   console.log("userToken", userToken);
-  return <div>dash context</div>;
+  return (
+    <div className="grid grid-cols-3 bg-gray-200 p-10 justify-between gap-5 w-screen">
+      <Card />
+      <Income />
+      <Expense />
+      <LastRecords />
+    </div>
+  );
 };
 
 export default Dashboard;
