@@ -20,6 +20,23 @@ const Dashboard = () => {
     setUserToken(token);
   }, []);
   console.log("userToken", userToken);
+
+  const getInfoCardData = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/records/info`);
+      console.log("ST", res.data);
+      setCardInfo(res.data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch transactions");
+    }
+  };
+
+  useEffect(() => {
+    fetchTransactions();
+    getInfoCardData();
+  }, [user]);
+
   return (
     <div className="grid grid-cols-3 bg-gray-200 p-10 justify-between gap-5 w-screen">
       <Card />

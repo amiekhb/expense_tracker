@@ -31,10 +31,19 @@ const deleteRecord = async (req, res) => {
   console.log("DATA", data);
   res.status(200).json({ message: "Deleted record successfully", user: data });
 };
-
+const getInfo = async (req, res) => {
+  try {
+    const [income, expense] =
+      await sql`SELECT transaction_type, SUM(amount) FROM record GROUP BY transaction_type`;
+    res.status(200).json({ income, expense });
+  } catch (error) {
+    res.status(400).json({ message: "failded", error });
+  }
+};
 module.exports = {
   getAllRecords,
   createRecord,
   updateRecord,
   deleteRecord,
+  getInfo,
 };
