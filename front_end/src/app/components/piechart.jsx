@@ -1,42 +1,60 @@
-// import React from "react";
-// import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
+import { Doughnut } from "react-chartjs-2";
 
-// const data = [
-//   { name: "Category A", value: 400 },
-//   { name: "Category B", value: 300 },
-//   { name: "Category C", value: 300 },
-//   { name: "Category D", value: 200 },
-// ];
+const DoughnutChart = ({ cardInfo }) => {
+  const data2 = {
+    datasets: [
+      {
+        data: [10, 10, 20, 40, 20],
 
-// const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+        backgroundColor: [
+          "#1C64F2",
+          "#E74694",
+          "#FDBA8C",
+          "#16BDCA",
+          "#F2901C",
+        ],
+        hoverBackgroundColor: [
+          "#1C64F2",
+          "#E74694",
+          "#FDBA8C",
+          "#16BDCA",
+          "#F2901C",
+        ],
+      },
+    ],
+    labels: [
+      transactions?.map((tr) => {
+        tr.name;
+      }),
+    ],
+  };
 
-// function MyPieChart() {
-//   return (
-//     <div className="">
-//       <ResponsiveContainer width="100%" height={300}>
-//         <PieChart>
-//           <Pie
-//             data={data}
-//             dataKey="value"
-//             nameKey="name"
-//             cx="50%"
-//             cy="50%"
-//             outerRadius={80}
-//             fill="#8884d8"
-//             label
-//           >
-//             {data.map((entry, index) => (
-//               <Cell
-//                 key={`cell-${index}`}
-//                 fill={COLORS[index % COLORS.length]}
-//               />
-//             ))}
-//           </Pie>
-//           <Tooltip />
-//         </PieChart>
-//       </ResponsiveContainer>
-//     </div>
-//   );
-// }
+  const options2 = {
+    legend: {
+      align: "start",
+      position: "right",
 
-// export default MyPieChart;
+      labels: {
+        display: false,
+        position: "right",
+      },
+    },
+  };
+
+  return (
+    <div className="flex items-center justify-center p-4 bg-white card w-1/2 ">
+      <h1 className="font-semibold">Income - Expense</h1>
+      <div className="h-96 w-96">
+        <Doughnut options={options2} data={data2} />
+        {/* {categoryData && <Doughnut options={options2} data={data2} />}
+        {!categoryData && (
+          <div className="flex items-center justify-center w-full h-full gap-4">
+            <div className="w-24 h-24 rounded-full skeleton"></div>
+          </div>
+        )} */}
+      </div>
+    </div>
+  );
+};
+
+export default DoughnutChart;

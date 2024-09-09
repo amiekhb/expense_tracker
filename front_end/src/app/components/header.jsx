@@ -11,12 +11,19 @@ const Header = ({ user, logOut }) => {
           <img src="./image/Vector.png" alt="" />
           <Link href={"/dashboard"}>Dashboard</Link>
           <Link href={"/records"}>Records</Link>
+          <Link href="/records">
+            <p>{user?.name}</p>
+          </Link>
         </div>
-        <div className="flex gap-5 items-center">
-          <div className=" text-white flex gap-3 rounded-full p-3 bg-blue-600 items-center ">
+        <div className="flex gap-5 items-center ">
+          <button
+            className="btn  text-white flex gap-3 rounded-full p-3 bg-blue-600 items-center"
+            onClick={() => document.getElementById("my_modal_3").showModal()}
+          >
             <FaPlus />
             Records
-          </div>
+          </button>
+
           <div className="avatar w-12 h-12">
             <div className="w-24 rounded-full">
               <img src={user?.avatarImg} />
