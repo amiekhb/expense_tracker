@@ -1,10 +1,12 @@
 import { Doughnut } from "react-chartjs-2";
 
-const DoughnutChart = ({ cardInfo }) => {
+const DoughnutChart = ({ transactions }) => {
+  console.log("transactions", transactions);
+
   const data2 = {
     datasets: [
       {
-        data: [10, 10, 20, 40, 20],
+        data: transactions?.map((a) => a.amount),
 
         backgroundColor: [
           "#1C64F2",
@@ -22,11 +24,7 @@ const DoughnutChart = ({ cardInfo }) => {
         ],
       },
     ],
-    labels: [
-      transactions?.map((tr) => {
-        tr.name;
-      }),
-    ],
+    labels: transactions?.map((a) => a.name),
   };
 
   const options2 = {
@@ -46,12 +44,6 @@ const DoughnutChart = ({ cardInfo }) => {
       <h1 className="font-semibold">Income - Expense</h1>
       <div className="h-96 w-96">
         <Doughnut options={options2} data={data2} />
-        {/* {categoryData && <Doughnut options={options2} data={data2} />}
-        {!categoryData && (
-          <div className="flex items-center justify-center w-full h-full gap-4">
-            <div className="w-24 h-24 rounded-full skeleton"></div>
-          </div>
-        )} */}
       </div>
     </div>
   );

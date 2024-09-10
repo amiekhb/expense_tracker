@@ -1,11 +1,8 @@
-import { useContext, useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { UserContext } from "../context/user-context";
-import { apiUrl } from "../utils/util";
 
 const BarChart = ({ cardInfo }) => {
   const data1 = {
-    labels: ["Jan"],
+    labels: ["Jan", "Feb"],
     datasets: [
       {
         label: "Income",

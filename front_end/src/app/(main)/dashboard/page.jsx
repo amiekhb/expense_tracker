@@ -125,7 +125,7 @@ const Dashboard = () => {
       </div>
       <div className="w-full flex gap-5">
         <BarChart cardInfo={cardInfo} />
-        <DoughnutChart />
+        <DoughnutChart transactions={transactions} />
       </div>
 
       <div className=" bg-white rounded-xl">
@@ -141,18 +141,20 @@ const Dashboard = () => {
               <tbody>
                 {/* row 1 */}
                 <tr>
-                  <th>
+                  <th className="flex gap-5">
                     <div className="bg-blue-500 rounded-full w-10 h-10 flex justify-center items-center">
                       {" "}
                       <GoHomeFill className="text-white w-5 h-5" />
                     </div>
+
+                    <div>
+                      {" "}
+                      <p className="text-xl">
+                        <div>{tr.name}</div>
+                      </p>
+                      <p className="text-gray-400">{tr.updatedat}</p>
+                    </div>
                   </th>
-                  <td>
-                    <p className="text-xl">
-                      <div>{tr.name}</div>
-                    </p>
-                    <p className="text-gray-400">{tr.updatedat}</p>
-                  </td>
 
                   <td className="text-green-500">{tr.amount}$</td>
                 </tr>
