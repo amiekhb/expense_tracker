@@ -33,35 +33,36 @@ const Dashboard = () => {
   }, []);
   console.log("userToken", userToken);
 
-  const { user } = useContext(UserContext);
-  const [transactions, setTransactions] = useState([]);
-  const [cardInfo, setCardInfo] = useState(null);
+  const { user, cardInfo, transactions } = useContext(UserContext);
 
-  const fetchTransactions = async () => {
+  const [barChartData, setBarChartData] = useState(null);
+  const [donutChartData, setDonutChartData] = useState(null);
+
+  const getBarChartData = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/records`);
-      console.log("DD", res.data.guilgee);
-      setTransactions(res.data.guilgee);
+      const res = await axios.get(`${apiUrl}/records/chart`);
+      console.log("dougnut", res.data.bar);
+      setBarChartData(res.data.bar);
     } catch (error) {
       console.error(error);
-      toast.error("Failed to fetch transactions");
+      toast.error("Failed to fetch doughnut data");
     }
   };
 
-  const getInfoCardData = async () => {
+  const getDougnutChartData = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/records/info`);
-      console.log("ST", res.data);
-      setCardInfo(res.data);
+      const res = await axios.get(`${apiUrl}/records/chart`);
+      console.log("dougnut", res.data.donut);
+      setDonutChartData(res.data.donut);
     } catch (error) {
       console.error(error);
-      toast.error("Failed to fetch transactions");
+      toast.error("Failed to fetch doughnut data");
     }
   };
 
   useEffect(() => {
-    fetchTransactions();
-    getInfoCardData();
+    getBarChartData();
+    getDougnutChartData();
   }, [user]);
 
   return (
@@ -124,10 +125,9 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="w-full flex gap-5">
-        <BarChart cardInfo={cardInfo} />
-        <DoughnutChart transactions={transactions} />
+        <BarChart barChartData={barChartData} />
+        <DoughnutChart donutChartData={donutChartData} />
       </div>
-
       <div className=" bg-white rounded-xl">
         <div className="overflow-x-auto w-full">
           <table className="table">

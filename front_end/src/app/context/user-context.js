@@ -3,22 +3,30 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { apiUrl } from "../utils/util";
+import { toast } from "react-toastify";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const [transactions, setTransactions] = useState([]);
+  const [cardInfo, setCardInfo] = useState(null);
+  const [categoryName, setCategoryName] = useState({
+    name: "",
+  });
   const [user, setUser] = useState({
     id: "",
     name: "",
     email: "",
     profile_img: "",
   });
-  const [categoryData, setCategoryData] = useState({
-    id: "",
-    name: "",
-    description: "",
-    category_img: "",
-  });
+
+  // const [userToken, setUserToken] = useState(null);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   setUserToken(token);
+  // }, []);
+  // console.log("userToken", userToken);
+
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -35,20 +43,37 @@ export const UserProvider = ({ children }) => {
       console.error("Error fetching user data:", error);
     }
   };
-  const fetchCategoryData = async () => {
+
+  const fetchTransactions = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(`${apiUrl}/records/info`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (response.status === 200) {
-        setCategoryData(response.data);
-        console.log("Category", response.data);
-      }
+      const res = await axios.get(`${apiUrl}/records`);
+      console.log("transaction", res.data.guilgee);
+      setTransactions(res.data.guilgee);
     } catch (error) {
-      console.error("Error fetching category data:", error);
+      console.error(error);
+      toast.error("Failed to fetch transactions");
+    }
+  };
+
+  const getInfoCardData = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/records/info`);
+      console.log("card info", res.data);
+      setCardInfo(res.data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch card info");
+    }
+  };
+
+  const getCategoryName = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/auth/categories`);
+      console.log("cat name", res.user);
+      setCategoryName(res.data);
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to fetch category names");
     }
   };
 
@@ -56,17 +81,14 @@ export const UserProvider = ({ children }) => {
     if (!user) {
     }
     fetchUserData();
+    fetchTransactions();
+    getInfoCardData();
+    getCategoryName();
   }, [user]);
-
-  useEffect(() => {
-    if (!categoryData) {
-    }
-    fetchCategoryData();
-  }, [categoryData]);
 
   return (
     <UserContext.Provider
-      value={{ user, fetchUserData, fetchCategoryData, categoryData }}
+      value={{ user, fetchUserData, transactions, cardInfo, categoryName }}
     >
       {children}
     </UserContext.Provider>

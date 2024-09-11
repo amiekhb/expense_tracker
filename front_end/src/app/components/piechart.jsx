@@ -1,13 +1,13 @@
 import { Doughnut } from "react-chartjs-2";
 
-const DoughnutChart = ({ transactions }) => {
-  console.log("transactions", transactions);
-
+const DoughnutChart = ({ donutChartData }) => {
+  console.log("donutChartData", donutChartData);
+  // console.log("categotyData", categotyData);
   const data2 = {
     datasets: [
       {
-        data: transactions?.map((a) => a.amount),
-
+        data: donutChartData?.map((a) => a.sum),
+        // categoryData?.map((a) => a.amount)
         backgroundColor: [
           "#1C64F2",
           "#E74694",
@@ -24,7 +24,8 @@ const DoughnutChart = ({ transactions }) => {
         ],
       },
     ],
-    labels: transactions?.map((a) => a.name),
+    labels: donutChartData?.map((a) => a.cat_name),
+    // categoryData?.map((a) => a.name)
   };
 
   const options2 = {

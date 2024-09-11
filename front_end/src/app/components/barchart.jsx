@@ -1,18 +1,20 @@
 import { Bar } from "react-chartjs-2";
 
-const BarChart = ({ cardInfo }) => {
+const BarChart = ({ barChartData }) => {
+  console.log("barChartData", barChartData);
   const data1 = {
-    labels: ["Jan", "Feb"],
+    labels: barChartData?.map((a) => a.sar),
+
     datasets: [
       {
         label: "Income",
         backgroundColor: "#22C55E",
-        data: [cardInfo?.income?.sum],
+        data: barChartData?.map((a) => a.total_inc),
       },
       {
         label: "Expense",
         backgroundColor: "#F87171",
-        data: [cardInfo?.expense?.sum],
+        data: barChartData?.map((a) => a.total_exp),
       },
     ],
   };
@@ -27,7 +29,6 @@ const BarChart = ({ cardInfo }) => {
     },
   };
 
-  console.log("EXP", cardInfo);
   return (
     <div className="flex items-center justify-center p-4 bg-white card  w-1/2">
       <h1 className="font-semibold">Income - Expense</h1>
@@ -35,5 +36,4 @@ const BarChart = ({ cardInfo }) => {
     </div>
   );
 };
-
 export default BarChart;
