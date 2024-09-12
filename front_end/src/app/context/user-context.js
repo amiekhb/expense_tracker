@@ -10,9 +10,7 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [transactions, setTransactions] = useState([]);
   const [cardInfo, setCardInfo] = useState(null);
-  const [categoryName, setCategoryName] = useState({
-    name: "",
-  });
+  const [categories, setCategories] = useState(null);
   const [user, setUser] = useState({
     id: "",
     name: "",
@@ -66,29 +64,40 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const getCategoryName = async () => {
+  const getCategories = async () => {
+    console.log("cat name ========>");
     try {
-      const res = await axios.get(`${apiUrl}/auth/categories`);
-      console.log("cat name", res.user);
-      setCategoryName(res.data);
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${apiUrl}/categories`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 200) {
+        console.log("category", response.data);
+        setCategories(response.data.categories);
+      }
     } catch (error) {
-      console.log(error);
+      console.log("CAT-NAME", error);
       toast.error("Failed to fetch category names");
     }
   };
 
   useEffect(() => {
-    if (!user) {
-    }
+    console.log("EFF");
+
     fetchUserData();
     fetchTransactions();
     getInfoCardData();
-    getCategoryName();
-  }, [user]);
+    getCategories();
+  }, []);
+
+  // console.log("PROVIDER");
 
   return (
     <UserContext.Provider
-      value={{ user, fetchUserData, transactions, cardInfo, categoryName }}
+      value={{ user, fetchUserData, transactions, cardInfo, categories }}
     >
       {children}
     </UserContext.Provider>

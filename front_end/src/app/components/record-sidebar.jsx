@@ -10,22 +10,20 @@ import { UserContext } from "../context/user-context";
 
 const Sidebar = () => {
   const [categoryOpen, setCategoryOpen] = useState(false);
-  const { transactions, categoryName } = useContext(UserContext);
-  console.log("categoryName", categoryName);
+  const { transactions, categories } = useContext(UserContext);
+  console.log("categoryName", categories);
   console.log("transactions", transactions);
   const handleClose = () => {
     setCategoryOpen(false);
   };
   return (
-    <div className="bg-white rounded-lg p-3">
-      <div className="w-full flex flex-col gap-5">
-        <button
-          className="btn  text-white flex gap-3 rounded-full bg-blue-600 items-center w-full"
-          // onClick={() => document.getElementById("my_modal_3").showModal()}
-        >
+    <div className="bg-white rounded-lg p-3 ">
+      <div className="w-full flex flex-col gap-5 h-full">
+        <button className="btn  text-white flex gap-3 rounded-full bg-blue-600 items-center w-full">
           <FaPlus />
           Add
         </button>
+
         <label className="input input-bordered flex items-center gap-2 ">
           <input type="text" className="grow" placeholder="Search" />
           <svg
@@ -79,26 +77,55 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <div>
+        <div className="flex flex-col gap-3">
           <div className="mb-3 flex justify-between">
             <h3 className="font-semibold ">Category</h3>
             <h4 className="text-xs text-gray-400">Clear</h4>
           </div>
-          <div>
-            {categoryName?.map((a) => a.name)}
-            <div className="flex items-center gap-2 mb-2">
-              <IoEyeSharp />
-              <p></p>
-            </div>
-            {/* // ))} */}
+          <div className="flex flex-col gap-2">
+            {categories?.map((a) => (
+              <div className="flex items-center gap-3 mb-2">
+                <IoEyeSharp />
+                <p>{a.name}</p>
+              </div>
+            ))}
           </div>
           <button
-            className="btn btn-ghost btn-sm font-light p-1 mt-3"
-            onClick={() => setCategoryOpen(true)}
+            className="btn rounded-full "
+            onClick={() => document.getElementById("my_modal_4").showModal()}
           >
-            <FaPlus color="#0166FF" />
-            Add Category
+            <FaPlus className="text-blue-600" /> Add Categories
           </button>
+          <dialog id="my_modal_4" className="modal">
+            <div className="modal-box gap-3">
+              <form method="dialog">
+                {/* if there is a button in form, it will close the modal */}
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                  ✕
+                </button>
+              </form>
+              <h3 className="font-bold text-lg">Add Category</h3>
+              <div className="flex gap-3 mt-3">
+                <select className="select select-bordered w-1/3 max-w-xs">
+                  <option disabled selected>
+                    <GoHomeFill />
+                  </option>
+                  <option>Han Solo</option>
+                  <option>Greedo</option>
+                </select>
+                <input
+                  type="text"
+                  placeholder="Name"
+                  className="input input-bordered w-2/3 max-w-xs"
+                />
+              </div>
+
+              <button className="bg-green-700 text-white rounded-full w-full mt-8 p-1">
+                Add
+              </button>
+            </div>
+          </dialog>
+
           <Modal categoryOpen={categoryOpen} close={handleClose} />
         </div>
       </div>

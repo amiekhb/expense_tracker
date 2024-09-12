@@ -20,7 +20,7 @@ const Records = () => {
     useContext(UserContext);
 
   return (
-    <div className="bg-gray-200 flex w-screen">
+    <div className="bg-gray-200 flex w-screen h-screen">
       <div className="w-1/4 p-5">
         {" "}
         <Sidebar transactions={transactions} categoryName={categoryName} />
