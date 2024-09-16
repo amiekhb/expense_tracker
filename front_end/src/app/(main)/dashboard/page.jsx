@@ -19,7 +19,7 @@ import {
   Legend,
   LinearScale,
 } from "chart.js";
-import Modal from "@/app/components/modal";
+import Modal, { RecordModal } from "@/app/components/modal";
 import BarChart from "@/app/components/barchart";
 import DoughnutChart from "@/app/components/piechart";
 import { UserContext } from "@/app/context/user-context";
@@ -35,35 +35,35 @@ const Dashboard = () => {
 
   const { user, cardInfo, transactions } = useContext(UserContext);
 
-  const [barChartData, setBarChartData] = useState(null);
-  const [donutChartData, setDonutChartData] = useState(null);
+  // const [barChartData, setBarChartData] = useState(null);
+  // const [donutChartData, setDonutChartData] = useState(null);
 
-  const getBarChartData = async () => {
-    try {
-      const res = await axios.get(`${apiUrl}/records/chart`);
-      console.log("dougnut", res.data.bar);
-      setBarChartData(res.data.bar);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to fetch doughnut data");
-    }
-  };
+  // const getBarChartData = async () => {
+  //   try {
+  //     const res = await axios.get(`${apiUrl}/records/chart`);
+  //     console.log("dougnut", res.data.bar);
+  //     setBarChartData(res.data.bar);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Failed to fetch doughnut data");
+  //   }
+  // };
 
-  const getDougnutChartData = async () => {
-    try {
-      const res = await axios.get(`${apiUrl}/records/chart`);
-      console.log("dougnut", res.data.donut);
-      setDonutChartData(res.data.donut);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to fetch doughnut data");
-    }
-  };
+  // const getDougnutChartData = async () => {
+  //   try {
+  //     const res = await axios.get(`${apiUrl}/records/chart`);
+  //     console.log("dougnut", res.data.donut);
+  //     setDonutChartData(res.data.donut);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Failed to fetch doughnut data");
+  //   }
+  // };
 
-  useEffect(() => {
-    getBarChartData();
-    getDougnutChartData();
-  }, [user]);
+  // useEffect(() => {
+  //   getBarChartData();
+  //   getDougnutChartData();
+  // }, [user]);
 
   return (
     <div className="grid bg-gray-200 p-10 justify-between gap-5 w-screen">
@@ -125,8 +125,8 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="w-full flex gap-5">
-        <BarChart barChartData={barChartData} />
-        <DoughnutChart donutChartData={donutChartData} />
+        <BarChart />
+        <DoughnutChart />
       </div>
       <div className=" bg-white rounded-xl">
         <div className="overflow-x-auto w-full">
@@ -163,7 +163,7 @@ const Dashboard = () => {
           </table>
         </div>
       </div>
-      <Modal />
+      <RecordModal />
     </div>
   );
 };

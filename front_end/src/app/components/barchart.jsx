@@ -1,20 +1,22 @@
+import { useContext } from "react";
 import { Bar } from "react-chartjs-2";
+import { DashboardContext } from "../context/dashboard-context";
 
-const BarChart = ({ barChartData }) => {
-  console.log("barChartData", barChartData);
+const BarChart = () => {
+  const { bar } = useContext(DashboardContext);
   const data1 = {
-    labels: barChartData?.map((a) => a.sar),
+    labels: bar?.map((a) => a.sar),
 
     datasets: [
       {
         label: "Income",
         backgroundColor: "#22C55E",
-        data: barChartData?.map((a) => a.total_inc),
+        data: bar?.map((a) => a.total_inc),
       },
       {
         label: "Expense",
         backgroundColor: "#F87171",
-        data: barChartData?.map((a) => a.total_exp),
+        data: bar?.map((a) => a.total_exp),
       },
     ],
   };

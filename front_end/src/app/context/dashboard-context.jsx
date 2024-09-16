@@ -17,7 +17,7 @@ export const DashboardProvider = ({ children }) => {
       setChartData({ donut: res.data.donut, bar: res.data.bar });
     } catch (error) {
       console.error(error);
-      toast.error("Failed to fetch transactions");
+      toast.error("Failed to fetch chart");
     }
   };
 
@@ -27,7 +27,7 @@ export const DashboardProvider = ({ children }) => {
 
   return (
     <DashboardContext.Provider
-      value={{ bar: chartData?.bar, dounut: chartData?.donut }}
+      value={{ bar: chartData?.bar, donut: chartData?.donut }}
     >
       {children}
     </DashboardContext.Provider>

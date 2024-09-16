@@ -1,9 +1,22 @@
 import Link from "next/link";
-import React from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 import { FaPlus } from "react-icons/fa6";
+import { UserContext } from "../context/user-context";
+import { RecordModal } from "./modal";
 
-const Header = ({ user, logOut }) => {
+const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { user } = useContext(UserContext);
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
   return (
     <div>
       <div className="p-8 flex justify-between">
@@ -19,11 +32,12 @@ const Header = ({ user, logOut }) => {
           <button
             className="btn  text-white flex gap-3 rounded-full p-3 bg-blue-600 items-center"
             onClick={() => document.getElementById("my_modal_3").showModal()}
+            // onClick={() => setIsOpen(true)}
           >
             <FaPlus />
             Records
           </button>
-
+          <RecordModal isOpen={isOpen} close={handleClose} />
           <div className="avatar w-12 h-12">
             <div className="w-24 rounded-full">
               <img src={user?.avatarImg} />

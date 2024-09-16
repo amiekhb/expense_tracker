@@ -1,31 +1,41 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
-import { toast } from "react-toastify";
-import { GoHomeFill, GoDotFill } from "react-icons/go";
-import BarChart from "./barchart";
-import DoughnutChart from "./piechart";
+
 import { IoEyeSharp } from "react-icons/io5";
-import Modal from "./modal";
+import Modal, { RecordModal } from "./modal";
 import { UserContext } from "../context/user-context";
+import CatModal from "./cat-modal";
 
 const Sidebar = () => {
-  const [categoryOpen, setCategoryOpen] = useState(false);
   const { transactions, categories } = useContext(UserContext);
   console.log("categoryName", categories);
   console.log("transactions", transactions);
+
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleClose = () => {
+    setIsOpen(false);
+  };
+  const [categoryOpen, setCategoryOpen] = useState(false);
+
+  const handleclose = () => {
     setCategoryOpen(false);
   };
   return (
     <div className="bg-white rounded-lg p-3 ">
       <div className="w-full flex flex-col gap-5 h-full">
-        <button className="btn  text-white flex gap-3 rounded-full bg-blue-600 items-center w-full">
+        <button
+          className="btn  text-white flex gap-3 rounded-full bg-blue-600 items-center w-full"
+          // onClick={() => setIsOpen(true)}
+          onClick={() => document.getElementById("my_modal_3").showModal()}
+        >
           <FaPlus />
           Add
         </button>
 
         <label className="input input-bordered flex items-center gap-2 ">
           <input type="text" className="grow" placeholder="Search" />
+          <RecordModal isOpen={isOpen} close={handleClose} />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -90,43 +100,8 @@ const Sidebar = () => {
               </div>
             ))}
           </div>
-          <button
-            className="btn rounded-full "
-            onClick={() => document.getElementById("my_modal_4").showModal()}
-          >
-            <FaPlus className="text-blue-600" /> Add Categories
-          </button>
-          <dialog id="my_modal_4" className="modal">
-            <div className="modal-box gap-3">
-              <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                  ✕
-                </button>
-              </form>
-              <h3 className="font-bold text-lg">Add Category</h3>
-              <div className="flex gap-3 mt-3">
-                <select className="select select-bordered w-1/3 max-w-xs">
-                  <option disabled selected>
-                    <GoHomeFill />
-                  </option>
-                  <option>Han Solo</option>
-                  <option>Greedo</option>
-                </select>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className="input input-bordered w-2/3 max-w-xs"
-                />
-              </div>
-
-              <button className="bg-green-700 text-white rounded-full w-full mt-8 p-1">
-                Add
-              </button>
-            </div>
-          </dialog>
-
-          <Modal categoryOpen={categoryOpen} close={handleClose} />
+          <CatModal categoryOpen={categoryOpen} close={handleclose} />
+          <RecordModal />
         </div>
       </div>
     </div>

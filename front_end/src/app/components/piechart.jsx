@@ -1,12 +1,13 @@
+import { useContext } from "react";
 import { Doughnut } from "react-chartjs-2";
+import { DashboardContext } from "../context/dashboard-context";
 
-const DoughnutChart = ({ donutChartData }) => {
-  console.log("donutChartData", donutChartData);
-  // console.log("categotyData", categotyData);
+const DoughnutChart = () => {
+  const { donut } = useContext(DashboardContext);
   const data2 = {
     datasets: [
       {
-        data: donutChartData?.map((a) => a.sum),
+        data: donut?.map((a) => a.sum),
         // categoryData?.map((a) => a.amount)
         backgroundColor: [
           "#1C64F2",
@@ -24,7 +25,7 @@ const DoughnutChart = ({ donutChartData }) => {
         ],
       },
     ],
-    labels: donutChartData?.map((a) => a.cat_name),
+    labels: donut?.map((a) => a.cat_name),
     // categoryData?.map((a) => a.name)
   };
 
